@@ -1,7 +1,0 @@
-.bg-imagen{
-  background-image: linear-gradient(rgba(39, 38, 38, 0.507), rgba(27, 26, 26, 0.789)), url(../../../assets/img/portada.jpeg);
-  background-size: cover;
-  background-position: center center;
-  height: 100vh;
-  overflow: hidden;
-}
