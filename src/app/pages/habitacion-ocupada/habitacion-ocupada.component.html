@@ -1,0 +1,84 @@
+<div class="page-content animated fadeIn">
+  <div class="container-fluid">
+    <h1 class="text-uppercase">Vista General de Habitaciones Ocupadas</h1>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-3">
+        <section class="widget widget-simple-sm-fill red d-flex cursor-pointer">
+          <div class="icon">
+            <i class="font-icon font-icon-cogwheel"></i>
+          </div>
+          <div class="info-icon">Verificación</div>
+          <div class="icon">
+           <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </div>
+        </section>
+    </div>
+    <div class="col-md-9">
+      <section class="tabs-section">
+        <div class="tabs-section-nav tabs-section-nav-icons">
+          <div class="tbl">
+            <ul class="nav" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active"  (click)="piso = 'primero'; getHabitacion(piso)" role="tab" data-toggle="tab">
+                  <span class="nav-link-in">
+                    <i class="font-icon font-icon-build"></i>
+                    Primer Piso
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  (click)="piso = 'segundo'; getHabitacion(piso)"  role="tab" data-toggle="tab">
+                  <span class="nav-link-in">
+                    <i class="font-icon font-icon-build"></i>
+                    Segundo Piso
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  (click)="piso = 'tercero'; getHabitacion(piso)" role="tab" data-toggle="tab">
+                  <span class="nav-link-in">
+                    <i class="font-icon font-icon-build"></i>
+                    Tercer Piso
+                  </span>
+                </a>
+              </li>
+
+
+            </ul>
+          </div>
+        </div><!--.tabs-section-nav-->
+
+
+      </section>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 col-xl-2 " *ngFor="let item of habitacion" >
+      <section class="widget widget-time ">
+        <header class="widget-header-dark with-btn text-center text-uppercase">
+         {{item.estado}}
+          <button (click)="mandarHabitacion(item)" type="button" class="widget-header-btn">
+            <i class="font-icon font-icon-plus"></i>
+          </button>
+        </header>
+        <div class="widget-time-content d-flex bg-warning" >
+          <div class="info-widget">
+            <p class="numero">
+              {{item.numero}}
+            </p>
+            <p class="tipo">
+              {{item.nombre}}
+            </p>
+          </div>
+            <i class="fas " [ngClass]="{'fa-bed': item.estado == 'disponible'}" ></i>
+            <i class="fas " [ngClass]="{'fa-shower': item.estado == 'sucio'}" ></i>
+            <i class="fas " [ngClass]="{'fa-procedures' : item.estado == 'ocupado'}" ></i>
+
+        </div>
+      </section>
+    </div>
+  </div>
+  </div>
+</div>

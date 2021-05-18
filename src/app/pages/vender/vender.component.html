@@ -1,0 +1,219 @@
+<div class="page-content animated fadeIn">
+  <div class="container-fluid">
+    <div class="d-flex">
+      <h1 class="text-uppercase">Proceso de Venta de Producto</h1>
+      <button (click)="volver()" class="btn  btn-lg btn-danger"> <i class="fas fa-arrow-circle-left "></i> Regresar</button>
+    </div>
+    <hr>
+    <div class="row" *ngIf="recepcionObtenida" >
+          <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <section class="card card-default">
+          <header class="card-header text-uppercase text-center text-secondary text-bold">
+            DATOS DEL habitación
+            <button type="button" class="modal-close">
+              <i class="fa fa-bed"></i>
+            </button>
+
+          </header>
+          <div class="d-flex p-dato">
+            <div class="card-text text-bold">Numero</div>
+            <div class="card-text">{{recepcionObtenida.numero_habitacion}}</div>
+          </div>
+          <div class="d-flex p-dato border-gris">
+            <div class="card-text text-bold">Tipo de Habitación</div>
+            <div class="card-text">{{recepcionObtenida.tipo_habitacion}}</div>
+          </div>
+          <div class="d-flex p-dato border-gris">
+            <div class="card-text text-bold">Costo</div>
+            <div class="card-text">S/. {{recepcionObtenida.precio}}</div>
+          </div>
+          <div class="d-flex p-dato border-gris">
+            <div class="card-text text-bold">Estado</div>
+            <div class="card-text"><span class="label label-success">{{recepcionObtenida.estado}}</span></div>
+          </div>
+
+
+        </section>
+      </div>
+
+      <div class="col-md-5">
+        <section class="card card-orange">
+          <header class="card-header text-uppercase text-bold text-warning text-center">
+            Datos del Huesped
+            <button type="button" class="modal-close">
+              <i class="fa fa-user"></i>
+            </button>
+          </header>
+          <div class="d-flex p-dato">
+            <div class="card-text text-bold">Nombre</div>
+            <div class="card-text">{{recepcionObtenida.nombre_huesped}}</div>
+          </div>
+          <div class="d-flex p-dato border-orange">
+            <div class="card-text text-bold">Documento</div>
+            <div class="card-text">{{recepcionObtenida.num_documento}}</div>
+          </div>
+          <div class="d-flex p-dato border-orange">
+            <div class="card-text text-bold">Fecha de Ingreso</div>
+            <div class="card-text">{{recepcionObtenida.fecha_entrada | date}} <span class="label label-info">{{recepcionObtenida.cant_dias}} días de Alojamiento</span></div>
+          </div>
+          <div class="d-flex p-dato border-orange">
+            <div class="card-text text-bold">Procedencia</div>
+            <div class="card-text">{{recepcionObtenida.procedencia}}</div>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <hr>
+
+    <div class="box-typical box-typical-padding d-flex p-dato" style="background-color: #343434;">
+      <button class="btn btn-secondary "  (click)="openModal(lgModal)"><i class="fa fa-plus-circle fa-spin" aria-hidden="true"></i> Agregar Productos</button>
+      <button class="btn btn-warning " (click)="limpiarProductos()"><i class="fa fa-trash" aria-hidden="true"></i> Limpiar Productos</button>
+    </div>
+
+    <div class="box-typical box-typical-padding">
+      <div style="overflow: auto;">
+        <table class="table table-bordered table-hover " >
+          <thead>
+            <tr>
+              <th scope="col">Opciones</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Precio</th>
+              <th scope="col" width="2">Cantidad</th>
+
+              <th scope="col" width="120">Sub Total</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="arrayProducto.length > 0"  >
+            <tr *ngFor="let item of arrayProducto; let index = index"  >
+              <td width="1" class="text-center">
+                <button class="btn btn-sm btn-rounded btn-danger" (click)="eliminarProducto(index)"><i class="fa fa-trash" aria-hidden="true"></i> </button>
+              </td>
+              <td>{{item.codigo}}</td>
+              <td>{{item.producto}}</td>
+              <td>{{item.categoria}}</td>
+              <td>{{item.precio}}</td>
+              <td>{{item.cantidad}}</td>
+              <td>{{'S/. '+(((item.precio | number)* item.cantidad)).toFixed(2)}}</td>
+
+            </tr>
+            <tr>
+              <td colspan="6" class="text-right text-bold text-uppercase">Total</td>
+              <td>{{'S/. '+ calcularTotal.toFixed(2)}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="arrayProducto.length == 0" >
+            <td colspan="7" class="bg-dark" style="text-align: center;">
+              EL carrito esta vacio
+          </td>
+        </tbody>
+        </table>
+      </div>
+      <div class="text-right" style="padding: 15px 0">
+        <hr>
+        <!-- {{montoActualizado}} -->
+        <button (click)="actualizarRecepcion()" class="btn  btn-primary  "><i class="fa fa-upload" aria-hidden="true"></i> Terminar Venta</button>
+      </div>
+
+    <div *ngIf="mostrar == 1"  class="alert alert-info alert-icon alert-close alert-dismissible fade in animated fadeIn" role="alert" style="margin-bottom: 0;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <i class="font-icon font-icon-warning"></i>
+      El monto a pagar sigue sienoe el mismo el cual es : S/. {{montoActualizado.toFixed(2)}}
+    </div>
+    <div *ngIf="mostrar == 2"  class="alert alert-info alert-icon alert-close alert-dismissible fade in animated fadeIn" role="alert" style="margin-bottom: 0;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <i class="font-icon font-icon-warning"></i>
+      Su monto final ha sido actualizado y ahora es : S/. {{montoActualizado.toFixed(2)}}
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Seleccionar Productos</h4>
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section class="">
+          <input
+          type="text"
+          style="padding:8px;margin:5px auto 15px auto;box-shadow: 3px 4px 15px -8px rgba(0,0,0,0.75);
+          border: 1px #e1e1e1;"
+          placeholder="Ingrese el nombre a Buscar" class="cuadro-buscar"
+          (keyup)="updateFilter($event)"
+        />
+        <ngx-datatable
+          #table
+          class="material expandable"
+          [columnMode]="'force'"
+          [loadingIndicator]="loading"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          rowHeight="auto"
+          [limit]="3"
+          [rows]="productos"
+          [sorts]="[{prop: 'id', dir: 'asc'}]"
+        >
+        <ngx-datatable-column name="Opciones" [flexGrow]="3">
+          <ng-template let-value="value" ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex">
+            <button (click)="agregarProducto(row)" class="btn btn-sm btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="codigo" [flexGrow]="3">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+            {{ row.codigo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="nombre" [flexGrow]="3">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template >
+            {{ row.nombre_producto }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="categoria" [flexGrow]="1">
+          <ng-template  let-value="value" let-row="row" ngx-datatable-cell-template >
+            {{ row.nombre_categoria }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="cantidad" [flexGrow]="1">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template >
+
+            <input [(ngModel)]="row.cantidad" value="1"  min="1" type="number" class="form-control" >
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Precio de Venta" [flexGrow]="3">
+          <ng-template let-value="value" ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex">
+
+            {{'S/. '+ row.precio_venta}}
+            <!-- {{row | json}} -->
+          </ng-template>
+        </ngx-datatable-column>
+
+
+        </ngx-datatable>
+        </section><!--.box-typical-->
+      </div>
+      <div class="modal-footer">
+        <button (click)="lgModal.hide()" class="btn btn-rounded btn-danger"><i class="fa fa-close" aria-hidden="true"></i> Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,31 @@
+@media screen and (max-width: 800px) {
+  .desktop-hidden {
+    display: initial;
+  }
+  .mobile-hidden {
+    display: none;
+  }
+}
+@media screen and (min-width: 800px) {
+  .desktop-hidden {
+    display: none;
+  }
+  .mobile-hidden {
+    display: initial;
+  }
+}
+/* .cabecera{
+  display: flex;
+  justify-content: space-between;
+} */
+.cuadro-buscar{
+  width: 100%;
+}
+@media screen and (min-width: 768px){
+  .cuadro-buscar{
+    width: 30%;
+  }
+
+}
+
+

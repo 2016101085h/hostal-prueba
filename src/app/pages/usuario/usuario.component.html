@@ -1,0 +1,78 @@
+
+    <!-- <app-modal [accion]="accion" (rol)="cargarTabla($event)"></app-modal> -->
+    <div class="page-content animated fadeIn">
+      <div class="container-fluid">
+        <div class="">
+          <h2> Registro de Usuarios</h2>
+         <app-modal app-modal [accion]="'guardar'" [template]="'usuario'" [data]="{}" (DatoIngresado)="cargarTabla($event)" ></app-modal>
+        <hr>
+        </div>
+        <section class="">
+          <input
+          type="text"
+          style="padding:8px;margin:15px auto;box-shadow: 3px 4px 15px -8px rgba(0,0,0,0.75);
+          border: 1px #e1e1e1;"
+          placeholder="Ingrese el nombre a Buscar" class="cuadro-buscar"
+          (keyup)="updateFilter($event)"
+        />
+        <ngx-datatable
+          #table
+          class="material expandable"
+          [columnMode]="'force'"
+          [loadingIndicator]="loading"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [scrollbarH]="true"
+          rowHeight="auto"
+          [limit]="3"
+          [rows]="users"
+          [sorts]="[{prop: 'id', dir: 'asc'}]"
+        >
+
+        <ngx-datatable-column name="id" [flexGrow]="3">
+          <ng-template let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+            {{ rowIndex + 1}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="nombre" [flexGrow]="3">
+          <ng-template let-value="value" ngx-datatable-cell-template >
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Rol" [flexGrow]="1">
+          <ng-template  let-row="row" ngx-datatable-cell-template >
+            {{ row.rol }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Correo Electrónico" [flexGrow]="3">
+          <ng-template let-row="row" ngx-datatable-cell-template >
+            {{ row.email }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="DNI" [flexGrow]="3">
+          <ng-template let-row="row" ngx-datatable-cell-template >
+            {{ row.num_documento }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Imagen" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template >
+            <img [src]="url+'img/usuarios/'+ row.imagen" [title]="row.nombre" class="img-fluid">
+
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="opciones" [flexGrow]="3">
+          <ng-template let-value="value" ngx-datatable-cell-template let-row="row" let-rowIndex="rowIndex">
+
+            <app-modal  [accion]="'actualizar'" [template]="'usuario'" [data]="row" (DatoActualizado)="actualizarUsuario($event)"></app-modal>
+            &nbsp;<button   (click)="eliminarUsuario(row)" class="btn btn-danger btn-sm"><i class="font-icon font-icon-trash"></i> </button>
+
+            <!-- {{row | json}} -->
+          </ng-template>
+        </ngx-datatable-column>
+
+        </ngx-datatable>
+        </section><!--.box-typical-->
+
+      </div><!--.container-fluid-->
+    </div><!--.page-content-->

@@ -1,0 +1,42 @@
+.input_imagen{
+  display: flex;
+  align-items: flex-end;
+}
+.input_imagen button{
+  flex-basis: 40%;
+  margin-top: 10px;
+  padding: 15px 0;
+  margin-right: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  /* background-color: #f6ca03e8; */
+}
+@media screen and (min-width: 768px){
+  .input_imagen button{
+    flex-basis: 25%;
+
+  }
+}
+.input_imagen button i , .input_imagen button input{
+  font-size: 45px;
+  padding: 20px 0;
+  cursor: pointer;
+  color: #fff;
+}
+input#valorImagen:disabled{
+  background-color: transparent;
+  cursor: not-allowed;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.btn-file{
+  position: relative;
+}
+.input-file{
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+}

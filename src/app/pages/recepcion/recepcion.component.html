@@ -1,0 +1,204 @@
+<div class="page-content animated fadeIn">
+  <div class="container-fluid">
+    <div class="d-flex">
+      <h1 class="text-uppercase">Procesar Habitación</h1>
+      <button [routerLink]="['/dashboard/seleccionar-habitacion']" class="btn btn-rounded btn-lg btn-danger"> <i class="fas fa-arrow-circle-left"></i> Regresar</button>
+    </div>
+  <hr>
+  <div class="card" *ngFor="let item of DatoHabitacion" >
+    <div class="card-header bg-warning">
+      <h5 class="text-uppercase text-bold">Datos de la Habitación</h5>
+    </div>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-7">
+          <p class="text-info text-bold text-uppercase">Numero de la Habitación: <span class="info-habitacion font-normal">{{item.numero}}</span></p>
+        </div>
+        <div class="col-md-5">
+          <p class="text-info text-bold text-uppercase">Tipo de la Habitación: <span class="info-habitacion font-normal">{{item.nombre}}</span></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <p class="text-info text-bold text-uppercase">Detalles de la Habitación: <span class="info-habitacion font-normal">{{item.descripcion}} </span></p>
+        </div>
+        <div class="col-md-5">
+          <p class="text-info text-bold text-uppercase">Estado de la Habitación:
+            <span class="info-habitacion label " [ngClass]="{'label-success': item.estado == 'disponible', 'label-danger': item.estado == 'ocupado', 'label-info': item.estado == 'sucio'}" >{{item.estado}}</span></p>
+        </div>
+    </div>
+    </div>
+  </div>
+  <hr>
+  <div class="box-typical box-typical-padding">
+    <div class="container-fluid">
+
+      <form [formGroup]="form" (keyup.enter)="enviarForm($event)">
+
+
+      <div class="row">
+        <div class="col-md-5">
+          <h4 class="text-center text-bold text-uppercase text-danger">Datos del Cliente</h4>
+          <fieldset class="form-group">
+            <label class="form-label" for="exampleInputPassword1">Tipo de Documento</label>
+            <select class="form-control" formControlName="tipo_documento">
+              <option value="0" selected disabled>Seleccione el tipo de documento</option>
+              <option value="DNI" >DNI</option>
+              <option value="RUC" >RUC</option>
+            </select>
+          </fieldset>
+          <div class="row">
+            <div class="col-md-6">
+              <fieldset class="form-group" [ngClass]="{'error': form.controls.num_documento.errors?.maxlength && form.controls.num_documento.touched, 'has-danger': form.controls.num_documento.errors?.maxlength && form.controls.num_documento.touched  }">
+                <label class="form-label" >Numero de Documento</label>
+                <input formControlName="num_documento" [ngClass]="{'form-control-danger': form.controls.num_documento.errors?.maxlength && form.controls.num_documento.touched }"
+                [typeahead]="huespedArray"
+                [optionsListTemplate]="customListTemplate"
+                (typeaheadOnSelect)="getValor($event)"
+                typeaheadOptionField="num_documento"
+                class="form-control" >
+                <div class="error-list" *ngIf="form.controls.num_documento.errors?.maxlength && form.controls.num_documento.touched" ><ul><li>Este campo debe tener 8 carácteres.</li></ul></div>
+
+         <ng-template #customListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+           <ul class="custom-list-group" [class.dropdown-menu]="isBs3">
+             <li class="custom-list-group-item"
+                 *ngFor="let match of matches"
+                 [class.active]="typeaheadTemplateMethods.isActive(match)"
+                 (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+                 (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
+               {{ match.item.num_documento + ' | ' + match.item.nombre }}
+             </li>
+           </ul>
+         </ng-template>
+
+              </fieldset>
+            </div>
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label class="form-label" >Fecha de Nacimiento</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input type="text"
+                    class="form-control"
+                    bsDatepicker formControlName="fecha_nacimiento" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" (bsValueChange)="valueChange($event)" >
+                    <!-- <bs-datepicker-inline [bsValue]="diaActual"></bs-datepicker-inline> -->
+                  </div>
+              </fieldset>
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <label class="form-label" for="exampleInputPassword1">Nombre del Cliente</label>
+            <input type="text" class="form-control" formControlName="nombre">
+          </fieldset>
+          <div class="row">
+            <div class="col-md-6">
+              <fieldset class="form-group" [ngClass]="{'error': form.controls.celular.errors?.maxlength && form.controls.celular.touched, 'has-danger': form.controls.celular.errors?.maxlength && form.controls.celular.touched  }">
+                <label class="form-label" for="exampleInputPassword1">Celular</label>
+                <input type="cel" class="form-control" formControlName="celular" [ngClass]="{'form-control-danger': form.controls.celular.errors?.maxlength && form.controls.celular.touched }">
+                <div class="error-list" *ngIf="form.controls.celular.errors?.maxlength && form.controls.celular.touched" ><ul><li>Este campo debe tener 9 carácteres.</li></ul></div>
+              </fieldset>
+            </div>
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label class="form-label" for="exampleInputPassword1">Procedencia</label>
+                <input type="text" class="form-control" formControlName="procedencia" >
+              </fieldset>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+          <h4 class="text-center text-bold text-uppercase text-danger">Datos del Alojamiento</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" >Precio</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-usd"></span>
+                  </div>
+                  <p *ngIf="precioHabitacion"  type="text" class="form-control"  >{{precioHabitacion.toFixed(2)}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" >Cantidad de Noches</label>
+                <div class="input-group">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-light" (click)="restarCantidad()"  >
+                      <i class="fas fa-minus-circle"></i>
+                    </button>
+                  </div>
+                  <p  class="form-control text-center" >{{cantidad}}</p>
+                  <div class="input-group-btn">
+
+                    <button type="button" class="btn btn-light" (click)="sumarCantidad()"  >
+                      <i class="fas fa-plus-circle"></i>
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label class="form-label" >Fecha de Entrada</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </div>
+                  <input type="text"
+                  class="form-control"
+                  bsDatepicker formControlName="fecha_entrada" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}">
+                </div>
+
+              </fieldset>
+            </div>
+            <div class="col-md-6">
+              <fieldset class="form-group">
+                <label class="form-label" >Fecha de Salida</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </div>
+                  <input type="text"
+                  class="form-control"
+                  bsDatepicker formControlName="fecha_salida"  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}" >
+                </div>
+
+              </fieldset>
+            </div>
+          </div>
+          <hr>
+          <h6>Total a Pagar: <span *ngIf="montoApagar"  class="text-bold" style="font-size: 20px;"> S/. {{(montoApagar).toFixed(2)}} </span></h6>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-credit-card"></span>
+              </div>
+              <select class="form-control" formControlName="medio_pago">
+                <option value="1" disabled selected>Seleccione el medio de Pago</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+          <div class="text-right">
+            <button type="button" [routerLink]="['/dashboard/seleccionar-habitacion']" class="btn btn-primary btn-grid    " style="margin-right: 20px"><i class="fas fa-times-circle"></i> Cancelar Registro</button>
+            <button (click)="enviarForm($event)" [disabled]="!form.valid "  class="btn btn-success btn-grid  " type="button"><i class="far fa-save"></i> Realizar Registro</button>
+          </div>
+           <!--  -->
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+  </div>
+</div>

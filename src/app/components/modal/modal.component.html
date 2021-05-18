@@ -1,0 +1,462 @@
+<!-- <button  *ngIf="accion =='guardar'"  type="button"
+
+    class="btn btn-rounded  btn-info"
+    ><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nuevo Rol
+</button> -->
+<button *ngIf="template == 'rol' && accion =='guardar'" type="button" class="btn btn-rounded  btn-info" (click)="openModal(rol); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nuevo Rol</button>
+
+<button *ngIf="template == 'rol' && accion =='actualizar'" type="button" class="btn btn-sm btn-warning" (click)="openModal(rol); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'categoria' && accion =='guardar'" type="button" class="btn btn-rounded  btn-info" (click)="openModal(categoria); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nueva Categoria</button>
+
+<button *ngIf="template == 'categoria' && accion =='actualizar'" type="button" class="btn btn-sm btn-warning" (click)="openModal(categoria); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'tipoHabitacion' && accion =='guardar'" type="button" class="btn btn-rounded  btn-success" (click)="openModal(tipoHabitacion); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Tipo de Habitacion</button>
+
+<button *ngIf="template == 'tipoHabitacion' && accion =='actualizar'" type="button" class="btn btn-sm btn-warning" (click)="openModal(tipoHabitacion); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'habitacion' && accion =='guardar'" type="button" class="btn btn-rounded  btn-warning" (click)="openModal(habitacion); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nueva Habitacion</button>
+
+<button *ngIf="template == 'habitacion' && accion =='actualizar'" type="button" class="btn btn-sm btn-success" (click)="openModal(habitacion); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'huesped' && accion =='guardar'" type="button" class="btn btn-rounded  btn-warning" (click)="openModal(huesped); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nuevo Huesped</button>
+
+<button *ngIf="template == 'huesped' && accion =='actualizar'" type="button" class="btn btn-sm btn-success" (click)="openModal(huesped); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'producto' && accion =='guardar'" type="button" class="btn btn-rounded  btn-warning" (click)="openModal(producto); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nuevo Producto</button>
+
+<button *ngIf="template == 'producto' && accion =='actualizar'" type="button" class="btn btn-sm btn-success" (click)="openModal(producto); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<button *ngIf="template == 'usuario' && accion =='guardar'" type="button" class="btn btn-rounded  btn-warning" (click)="openModal(usuario); titulo = 'Ingresar Registro'"><i class="font-icon font-icon-plus" ></i> &nbsp;	Ingresar Nuevo usuario</button>
+
+<button *ngIf="template == 'usuario' && accion =='actualizar'" type="button" class="btn btn-sm btn-info" (click)="openModal(usuario); titulo = 'Actualizar Registro'"><i class="font-icon font-icon-pencil"></i></button>
+
+<ng-template #rol >
+
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevoRol(form)" >
+              <fieldset class="form-group " [ngClass]="{'error': nombre.errors?.required && nombre.touched , 'has-danger': nombre.errors?.required && nombre.touched }"  >
+                <label class="form-label">Nombre</label>
+                <input  type="text" class="form-control " [ngClass]="{'form-control-danger': nombre.errors?.required && nombre.touched }"  name="nombre" [(ngModel)]="nombreR" required #nombre="ngModel">
+                <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <fieldset class="form-group"  [ngClass]="{'error': descripcion.errors?.required && descripcion.touched, 'has-danger': descripcion.errors?.required && descripcion.touched}">
+                <label class="form-label">Descripción</label>
+                <input type="text" class="form-control error" name="descripcion" [(ngModel)]="descripcionR" required #descripcion="ngModel" [ngClass]="{'form-control-danger': descripcion.errors?.required && descripcion.touched }">
+                <div class="error-list" *ngIf="descripcion.errors?.required && descripcion.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+              </fieldset>
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning" [disabled]="form.invalid"><i class="font-icon font-icon-archive"></i> Guardar</button>
+
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+        <ng-template #tipoHabitacion >
+
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevoTipoHabitacion(form)" >
+              <fieldset class="form-group " [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }"  >
+                <label class="form-label">Nombre</label>
+                <input  type="text" class="form-control error" name="nombre" [(ngModel)]="nombreR" required #nombre="ngModel"  [ngClass]="{'form-control-danger': nombre.errors?.required && nombre.touched }">
+                <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <fieldset class="form-group"  [ngClass]="{'error': descripcion.errors?.required && descripcion.touched, 'has-danger': descripcion.errors?.required && descripcion.touched}">
+                <label class="form-label">Descripción</label>
+                <input type="text" class="form-control error" name="descripcion" [(ngModel)]="descripcionR" required #descripcion="ngModel"  [ngClass]="{'form-control-danger': descripcion.errors?.required && descripcion.touched }">
+                <div class="error-list" *ngIf="descripcion.errors?.required && descripcion.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+              </fieldset>
+              <div class="form-group">
+                <div class="input_imagen">
+                  <button (change)="changeImagen()" class="btn-file btn btn-primary"><i class="font-icon font-icon-picture" aria-hidden="true"></i>
+                      <input (change)="subirImagen($event)" class="input-file"  type="file" id="imagen" name="imagen"  required>
+                  </button>
+
+                  <input  type="text" [(ngModel)]="valorImagen" name="valorImagen" class="form-control" disabled="" id="valorImagen" placeholder="Seleccion una imagen">
+              </div>
+              </div>
+              <div class="form-group">
+                <img [src]="imagenR" class="img-fluid">
+              </div>
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning" [disabled]="form.invalid" ><i class="font-icon font-icon-archive" ></i> Guardar</button>
+                <!--  -->
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+
+        <ng-template #habitacion>
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevahabitacion(form)" >
+              <fieldset class="form-group "  [ngClass]="{'error': tipo_habitacion_id.errors?.required && tipo_habitacion_id.touched, 'has-danger': tipo_habitacion_id.errors?.required && tipo_habitacion_id.touched}" >
+                <!-- <label class="form-label">Tipo de Habitación</label> -->
+                <select class="form-control " name="tipo_habitacion_id" [(ngModel)]="tipo_habitacion_idR" required #tipo_habitacion_id="ngModel" >
+                  <option value="0" selected disabled>Escoja el tipo de Habitación</option>
+                  <option [value]="item.id" *ngFor="let item of arrayTipoHabitacion" >{{item.nombre}}</option>
+                  <!-- [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }" -->
+                </select>
+             <div class="error-list" *ngIf="tipo_habitacion_id.errors?.required && tipo_habitacion_id.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': precio.errors?.required && precio.touched, 'has-danger': precio.errors?.required && precio.touched}">
+                    <label class="form-label">Precio</label>
+                    <input type="number" min="0" class="form-control error" #precio="ngModel" name="precio" [(ngModel)]="precioR" required  [ngClass]="{'form-control-danger': precio.errors?.required && precio.touched }">
+                    <div class="error-list" *ngIf="precio.errors?.required && precio.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': numero.errors?.required && numero.touched, 'has-danger': numero.errors?.required && numero.touched}">
+                    <label class="form-label">Número de Habitacion</label>
+                    <input type="number" min="0" class="form-control error" #numero="ngModel" name="numero" [(ngModel)]="numeroR" required  [ngClass]="{'form-control-danger': numero.errors?.required && numero.touched }">
+                    <div class="error-list" *ngIf="numero.errors?.required && numero.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+
+                  <fieldset class="form-group "  [ngClass]="{'error': piso.errors?.required && piso.touched, 'has-danger': piso.errors?.required && piso.touched}" >
+                    <label class="form-label">Piso de Habitación</label>
+                    <select class="form-control " name="piso" [(ngModel)]="pisoR" required #piso="ngModel" >
+                      <option value="2" selected disabled>Elija el piso de Habitación</option>
+                      <option value="primero">Primer Piso</option>
+                      <option value="segundo">Segundo Piso</option>
+
+                      <!-- [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }" -->
+                    </select>
+                 <div class="error-list" *ngIf="tipo_habitacion_id.errors?.required && tipo_habitacion_id.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group "  [ngClass]="{'error': estado.errors?.required && estado.touched, 'has-danger': estado.errors?.required && estado.touched}">
+                    <label class="form-label">Estado</label>
+                    <select class="form-control" #estado="ngModel" name="estado" [(ngModel)]="estadoR" required>
+                      <option value="1" selected disabled>Elija una Opción</option>
+                      <option value="disponible">Disponible</option>
+                      <option value="ocupado">Ocupado</option>
+                      <option value="sucio">Sucio</option>
+                      <option value="checkout">Checkout</option>
+                      <!-- [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }" -->
+                    </select>
+                    <div class="error-list" *ngIf="estado.errors?.required && estado.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+
+
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning-outline" [disabled]="form.invalid || tipo_habitacion_id.value === '0' || piso.value == '1' || estado.value == '2'"  ><i class="font-icon font-icon-archive" ></i> Guardar</button>
+                <!--  -->
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger-outline" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+        <ng-template #huesped>
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevoHuesped(form)" >
+              <fieldset class="form-group "  [ngClass]="{'error': tipo_documento.errors?.required && tipo_documento.touched, 'has-danger': tipo_documento.errors?.required && tipo_documento.touched}" >
+                <label class="form-label">Tipo de Habitación</label>
+                <select class="form-control " name="tipo_documento" [(ngModel)]="tipo_documentoR" required #tipo_documento="ngModel" >
+                  <option value="0" selected disabled>Escoja el tipo de Documento</option>
+                  <option value="DNI">DNI</option>
+                  <option value="RUC">RUC</option>
+                </select>
+             <div class="error-list" *ngIf="tipo_documento.errors?.required && tipo_documento.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': num_documento.errors?.required && num_documento.touched, 'has-danger': num_documento.errors?.required && num_documento.touched}">
+                    <label class="form-label">Numero de Documento</label>
+                    <input type="number" min="0" class="form-control error" #num_documento="ngModel" name="num_documento"  [(ngModel)]="num_documentoR" required  [ngClass]="{'form-control-danger': num_documento.errors?.required && num_documento.touched }">
+                    <div class="error-list" *ngIf="num_documento.errors?.required && num_documento.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': fecha_nacimiento.errors?.required && fecha_nacimiento.touched, 'has-danger': fecha_nacimiento.errors?.required && fecha_nacimiento.touched}">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control error" #fecha_nacimiento="ngModel" name="fecha_nacimiento" [(ngModel)]="fecha_nacimientoR" required  [ngClass]="{'form-control-danger': fecha_nacimiento.errors?.required && fecha_nacimiento.touched }">
+                    <div class="error-list" *ngIf="fecha_nacimiento.errors?.required && fecha_nacimiento.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+              <fieldset class="form-group "  [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched}" >
+                <label class="form-label">Nombre de Cliente</label>
+                <input class="form-control " name="nombre" [(ngModel)]="nombreR" required #nombre="ngModel" >
+
+             <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="form-group row">
+                <div class="col-md-6">
+
+                  <fieldset class="form-group "  [ngClass]="{'error': celular.errors?.required && celular.touched, 'has-danger': celular.errors?.required && celular.touched}" >
+                    <label class="form-label">Celular del Cliente</label>
+                    <input class="form-control " type="cel" name="celular" [(ngModel)]="celularR" required #celular="ngModel" >
+                 <div class="error-list" *ngIf="celular.errors?.required && celular.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group "  [ngClass]="{'error': procedencia.errors?.required && procedencia.touched, 'has-danger': procedencia.errors?.required && procedencia.touched}">
+                    <label class="form-label">procedencia</label>
+                    <input class="form-control" #procedencia="ngModel" name="procedencia" [(ngModel)]="procedenciaR" required>
+                    <div class="error-list" *ngIf="procedencia.errors?.required && procedencia.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning-outline" [disabled]="form.invalid" ><i class="font-icon font-icon-archive" ></i> Guardar</button>
+                <!--  -->
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger-outline" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+        <ng-template #categoria >
+
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevaCategoria(form)" >
+              <fieldset class="form-group " [ngClass]="{'error': nombre.errors?.required && nombre.touched , 'has-danger': nombre.errors?.required && nombre.touched }"  >
+                <label class="form-label">Nombre</label>
+                <input  type="text" class="form-control " [ngClass]="{'form-control-danger': nombre.errors?.required && nombre.touched }"  name="nombre" [(ngModel)]="nombreR" required #nombre="ngModel">
+                <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <fieldset class="form-group"  [ngClass]="{'error': descripcion.errors?.required && descripcion.touched, 'has-danger': descripcion.errors?.required && descripcion.touched}">
+                <label class="form-label">Descripción</label>
+                <input type="text" class="form-control error" name="descripcion" [(ngModel)]="descripcionR" required #descripcion="ngModel" [ngClass]="{'form-control-danger': descripcion.errors?.required && descripcion.touched }">
+                <div class="error-list" *ngIf="descripcion.errors?.required && descripcion.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+              </fieldset>
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning" [disabled]="form.invalid"><i class="font-icon font-icon-archive"></i> Guardar</button>
+
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+        <ng-template #producto>
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevoProducto(form)" >
+              <fieldset class="form-group "  [ngClass]="{'error': categoria_id.errors?.required && categoria_id.touched, 'has-danger': categoria_id.errors?.required && categoria_id.touched}" >
+                <label class="form-label">Tipo de Habitación</label>
+                <select class="form-control " name="categoria_id" [(ngModel)]="categoria_idR" required #categoria_id="ngModel" >
+                  <option value="0" selected disabled>Escoja el tipo de Habitación</option>
+                 <option [value]="item.id" *ngFor="let item of arrayCategoria" >{{item.nombre}}</option>
+                  <!-- [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }" -->
+                </select>
+             <div class="error-list" *ngIf="categoria_id.errors?.required && categoria_id.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched}">
+                    <label class="form-label">Nombre de Producto</label>
+                    <input type="text" min="0" class="form-control error" #nombre="ngModel" name="nombre" [(ngModel)]="nombreR" required  [ngClass]="{'form-control-danger': nombre.errors?.required && nombre.touched }">
+                    <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group"  [ngClass]="{'error': codigo.errors?.required && codigo.touched, 'has-danger': codigo.errors?.required && codigo.touched}">
+                    <label class="form-label">Código de Producto</label>
+                    <input type="text" min="0" class="form-control error" #codigo="ngModel" name="codigo" [(ngModel)]="codigoR" required  [ngClass]="{'form-control-danger': codigo.errors?.required && codigo.touched }">
+                    <div class="error-list" *ngIf="codigo.errors?.required && codigo.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+
+                  <fieldset class="form-group "  [ngClass]="{'error': precio_venta.errors?.required && precio_venta.touched, 'has-danger': precio_venta.errors?.required && precio_venta.touched}" >
+                    <label class="form-label">Precio de Producto</label>
+                    <input type="number" min="0" class="form-control error" #precio_venta="ngModel" name="precio_venta" [(ngModel)]="precio_ventaR" required  [ngClass]="{'form-control-danger': precio_venta.errors?.required && precio_venta.touched }">
+                 <div class="error-list" *ngIf="precio_venta.errors?.required && precio_venta.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <fieldset class="form-group "  [ngClass]="{'error': stock.errors?.required && stock.touched, 'has-danger': stock.errors?.required && stock.touched}">
+                    <label class="form-label">Stock</label>
+                    <input type="number" min="0" class="form-control error" #stock="ngModel" name="stock" [(ngModel)]="stockR" required  [ngClass]="{'form-control-danger': stock.errors?.required && stock.touched }">
+                    <div class="error-list" *ngIf="stock.errors?.required && stock.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+
+
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning-outline" [disabled]="form.invalid || categoria_id.value === '0' "  ><i class="font-icon font-icon-archive" ></i> Guardar</button>
+                <!--  -->
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger-outline" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+        <ng-template #usuario >
+
+          <div class="modal-header bg-secondary" style="background-color: #343434; color: #fff;">
+            <h4 class="modal-title pull-left text-uppercase">  {{titulo}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="nuevoUsuario(form)" >
+              <fieldset class="form-group " [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }"  >
+
+                <select class="form-control " name="rol_id" [(ngModel)]="rol_idR" required #tipo_habitacion_id="ngModel" >
+                  <option value="0" selected disabled>Escoja el Rol</option>
+                  <option [value]="item.id" *ngFor="let item of arrayRol" >{{item.nombre}}</option>
+                  <!-- [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }" -->
+                </select>
+                <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <fieldset class="form-group " [ngClass]="{'error': nombre.errors?.required && nombre.touched, 'has-danger': nombre.errors?.required && nombre.touched  }"  >
+                <label class="form-label">Nombre</label>
+                <input  type="text" class="form-control error" name="nombre" [(ngModel)]="nombreR" required #nombre="ngModel"  [ngClass]="{'form-control-danger': nombre.errors?.required && nombre.touched }">
+                <div class="error-list" *ngIf="nombre.errors?.required && nombre.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="row">
+                <div class="col-md-6">
+
+                  <fieldset class="form-group"  [ngClass]="{'error': num_documento.errors?.required && num_documento.touched, 'has-danger': num_documento.errors?.required && num_documento.touched}">
+                    <label class="form-label">Documento</label>
+                    <input type="text" class="form-control error" name="num_documento" [(ngModel)]="num_documentoR" required #num_documento="ngModel"  [ngClass]="{'form-control-danger': num_documento.errors?.required && num_documento.touched }">
+                    <div class="error-list" *ngIf="num_documento.errors?.required && num_documento.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+
+                  <fieldset class="form-group"  [ngClass]="{'error': celular.errors?.required && celular.touched, 'has-danger': celular.errors?.required && celular.touched}">
+                    <label class="form-label">Celular</label>
+                    <input type="text" class="form-control error" name="celular" [(ngModel)]="celularR" required #celular="ngModel"  [ngClass]="{'form-control-danger': celular.errors?.required && celular.touched }">
+                    <div class="error-list" *ngIf="celular.errors?.required && celular.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+                  </fieldset>
+                </div>
+              </div>
+              <fieldset class="form-group " [ngClass]="{'error': email.errors?.required && email.touched, 'has-danger': email.errors?.required && email.touched }"  >
+                <label class="form-label">Correo Electrónico</label>
+                <input  [disabled]="inputDisable" type="text" class="form-control error" name="email" [(ngModel)]="emailR" required #email="ngModel"  [ngClass]="{'form-control-danger': email.errors?.required && email.touched }">
+                <div class="error-list" *ngIf="email.errors?.required && email.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+              </fieldset>
+              <div class="row">
+                <div class="col-md-6">
+                  <fieldset  class="form-group " [ngClass]="{'error': password.errors?.required && password.touched, 'has-danger': password.errors?.required && password.touched  }"  >
+                    <label class="form-label">Contraseña</label>
+                    <input [disabled]="disable"  type="password" class="form-control error" name="password" [(ngModel)]="passwordR" required #password="ngModel"  [ngClass]="{'form-control-danger': password.errors?.required && password.touched }">
+                    <div class="error-list" *ngIf="password.errors?.required && password.touched" ><ul><li>Este campo es obligatorio.</li></ul></div>
+
+                  </fieldset>
+
+
+                </div>
+                <div class="col-md-6 text-center">
+                  <fieldset *ngIf="!disable"  class="form-group " [ngClass]="{'error': validarContrasena(form) , 'has-danger': validarContrasena(form)   }"  >
+                    <label class="form-label">Confirmar Contraseña</label>
+                    <input  type="password" class="form-control error" name="password2" [(ngModel)]="password2R" required #password2="ngModel"  [ngClass]="{'form-control-danger': password2.errors?.required && password2.touched }">
+                    <div class="error-list" *ngIf="validarContrasena(form)" ><ul><li>No coinnciden las contraseñas.</li></ul></div>
+
+                  </fieldset>
+                  <fieldset>
+                    <label style="color: white">asa</label>
+                    <button *ngIf="disable" (click)="disable = !disable" class="btn btn-success">Cambiar contraseña</button>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input_imagen">
+                  <button (change)="changeImagen()" class="btn-file btn btn-primary"><i class="font-icon font-icon-picture" aria-hidden="true"></i>
+                      <input (change)="subirImagen($event)" class="input-file"  type="file" id="imagen" name="imagen"  required>
+                  </button>
+
+                  <input  type="text" [(ngModel)]="valorImagen" name="valorImagen" class="form-control" disabled="" id="valorImagen" placeholder="Selecciona una imagen">
+              </div>
+              </div>
+              <div class="form-group">
+                <img [src]="imagenR" class="img-fluid">
+              </div>
+              <div class="text-right">
+                <button  type="submit" class="btn btn-rounded btn-warning" [disabled]="form.invalid" ><i class="font-icon font-icon-archive" ></i> Guardar</button>
+                <!--  -->
+                &nbsp;
+              <button type="button" class="btn btn-rounded btn-danger" (click)="modalRef.hide()"><i class="font-icon font-icon-close"></i> Cerrar</button>
+
+
+              </div>
+            </form>
+          </div>
+        </ng-template>

@@ -1,0 +1,191 @@
+
+
+<div class="mobile-menu-left-overlay"></div>
+<nav class="side-menu">
+  <div class="side-menu-avatar">
+      <div class="avatar-preview avatar-preview-128">
+          <img [src]="usuario.imgUrl" alt="">
+        </div>
+        <br>
+        <p class="text-white text-center text-uppercase"><span class="label label-danger p-10">{{usuario.nombre}}</span></p>
+  </div>
+  <ul class="side-menu-list">
+      <li class="brown">
+          <a [routerLink]="['/dashboard']">
+              <i class="font-icon font-icon-home" routerLinkActive="active"></i>
+              <span class="lbl">Inicio</span>
+          </a>
+      </li>
+      <!-- <li class="green">
+          <a href="#">
+              <i class="font-icon font-icon-cart"></i>
+              <span class="lbl">Marketplace</span>
+          </a>
+      </li> -->
+      <!-- <li class="gold ">
+          <a href="#">
+              <i class="font-icon font-icon-speed"></i>
+              <span class="lbl">Performance</span>
+          </a>
+      </li>
+      <li class="blue">
+          <a href="#">
+              <i class="font-icon font-icon-users active"></i>
+              <span class="lbl">Community</span>
+          </a>
+      </li> -->
+      <li class="purple with-sub">
+          <span>
+              <i class="font-icon font-icon-comments "></i>
+              <span class="lbl">Rooms</span>
+          </span>
+          <ul>
+              <li><a [routerLink]="['tipoHabitacion']"><span class="lbl">Tipos</span><span class="label label-custom label-pill label-danger">{{cantidad}}</span></a></li>
+              <li><a [routerLink]="['habitacion']"><span class="lbl">Habitacions</span></a></li>
+
+          </ul>
+      </li>
+<!--
+      <li  class="orange-red with-sub">
+          <span>
+              <i class="font-icon font-icon-cogwheel"></i>
+              <span class="lbl">Configuración</span>
+          </span>
+          <ul>
+              <li  ><a [routerLink]="['seleccionar-habitacion']">
+                <span class="lbl">Habitaciones</span></a></li>
+
+
+          </ul>
+      </li> -->
+      <li ><a [routerLink]="['seleccionar-habitacion']">
+        <i class="font-icon font-icon-cogwheel" routerLinkActive="active"></i>
+        <span class="lbl">Recepción </span>
+      </a>
+      </li>
+
+      <li  class="orange-red with-sub">
+        <span>
+            <i class="font-icon font-icon-cart"></i>
+            <span class="lbl">Puntos de Venta</span>
+        </span>
+        <ul>
+            <li  ><a [routerLink]="['categorias']"><span class="lbl">Categorias</span></a></li>
+            <li  ><a [routerLink]="['productos']"><span class="lbl">Productos</span></a></li>
+            <li ><a [routerLink]="['habitaciones-ocupadas']" href="#"><span class="lbl">Vender</span></a></li>
+
+        </ul>
+    </li>
+    <li class="blue-dirty">
+      <a href="#" [routerLink]="['checkout']">
+          <i class="font-icon font-icon-notebook" routerLinkActive="active"></i>
+          <span class="lbl">Check out</span>
+      </a>
+  </li>
+  <li  class="orange-red with-sub">
+    <span>
+      <i class="font-icon font-icon-contacts"></i>
+        <span class="lbl">Reportes</span>
+    </span>
+    <ul>
+        <li  ><a [routerLink]="['venta-diaria']"><span class="lbl">Venta Diaria</span></a></li>
+        <li  ><a [routerLink]="['venta-mensual']"><span class="lbl">Venta Mensual</span></a></li>
+        <!-- <li ><a [routerLink]="['/habitaciones-ocupadas']" href="#"><span class="lbl">Vender</span></a></li> -->
+
+    </ul>
+</li>
+<li ><a [routerLink]="['clientes']" >
+  <i class="font-icon font-icon-user" routerLinkActive="active"></i>
+  <span class="lbl">Clientes</span>
+</a>
+</li>
+<li  class="orange-red with-sub">
+  <span>
+      <i class="font-icon font-icon-users"></i>
+      <span class="lbl">Administración</span>
+  </span>
+  <ul>
+      <li  ><a [routerLink]="['usuarios']"><span class="lbl">Usuarios</span></a></li>
+      <li ><a [routerLink]="['roles']" href="#"><span class="lbl">Roles</span></a></li>
+
+  </ul>
+</li>
+      <!-- <li class="grey">
+          <a href="#">
+              <i class="font-icon font-icon-dashboard"></i>
+              <span class="lbl">Dashboards</span>
+          </a>
+      </li> -->
+      <!-- <li class="red">
+          <a href="#" class="label-right">
+              <i class="font-icon font-icon-contacts"></i>
+              <span class="lbl">Contacts</span>
+              <span class="label label-custom label-pill label-danger">35</span>
+          </a>
+      </li>
+      <li class="aquamarine">
+          <a href="#">
+              <i class="font-icon font-icon-build"></i>
+              <span class="lbl">Companies</span>
+          </a>
+      </li>
+
+
+      <li class="magenta">
+          <a href="#">
+              <i class="font-icon font-icon-widget"></i>
+              <span class="lbl">Widges</span>
+          </a>
+      </li>
+
+      <li class="blue-sky">
+          <a href="#">
+              <i class="font-icon font-icon-question"></i>
+              <span class="lbl">Help</span>
+          </a>
+      </li>
+      <li class="coral">
+          <a href="#">
+              <i class="font-icon font-icon-cogwheel"></i>
+              <span class="lbl">Settings</span>
+          </a>
+      </li>
+      <li class="magenta">
+          <a href="#">
+              <i class="font-icon font-icon-user"></i>
+              <span class="lbl">Profile</span>
+          </a>
+      </li>
+
+      <li class="aquamarine">
+          <a href="#">
+              <i class="font-icon font-icon-mail"></i>
+              <span class="lbl">Contact form</span>
+          </a>
+      </li> -->
+      <!-- <li class="pink">
+          <a href="#">
+              <i class="font-icon font-icon-users-group"></i>
+              <span class="lbl">Group</span>
+          </a>
+      </li>
+      <li class="gold">
+          <a href="#">
+              <i class="font-icon font-icon-picture-2"></i>
+              <span class="lbl">Gallery</span>
+          </a>
+      </li>
+      <li class="brown">
+          <a href="#">
+              <i class="font-icon font-icon-event"></i>
+              <span class="lbl">Event</span>
+          </a>
+      </li>
+      <li class="red">
+          <a href="#">
+              <i class="font-icon font-icon-case-2"></i>
+              <span class="lbl">Project</span>
+          </a>
+      </li> -->
+  </ul>
+</nav><!--.side-menu-->
